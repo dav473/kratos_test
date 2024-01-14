@@ -52,10 +52,10 @@ selfservice:
 
     logout:
       after:
-        default_browser_return_url: http://kratos-openresty-1:8080/auth/login
+        default_browser_return_url: http://kratos-openresty-1:8080/auth/out
 
     login:
-      ui_url: http://http://kratos-openresty-1:8080/auth/login
+      ui_url: http://kratos-openresty-1:8080/auth/login
       lifespan: 10m
 
     registration:
