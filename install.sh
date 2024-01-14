@@ -50,7 +50,7 @@ if ! id "kratos" &> /dev/null; then
 		echo "------SUCCESSFULLY INSTALLED------"
 else
 		#Tempary testing will remvoed later
-  		wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/kratos.yml
+  		cd /opt/kratos/config && wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/kratos.yml
 		#Start PostgreSQL
 		service postgresql start
 		#Start Kratos
