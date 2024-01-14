@@ -11,7 +11,7 @@ serve:
     base_url: http://kratos:4434/
 
 selfservice:
-  default_browser_return_url: http://kratos-openresty-1:8080/auth/
+  default_browser_return_url: http://kratos-openresty-1:8080/auth1223
   allowed_return_urls:
     - http://kratos-openresty-1:8080
 
