@@ -35,8 +35,8 @@ if ! id "kratos" &> /dev/null; then
 
         # Download config files
         cd ../config
-		wget https://raw.githubusercontent.com/dav473/kratos_test/main/identity.schema.json
-		wget https://raw.githubusercontent.com/dav473/kratos_test/main/kratos.yml
+		wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/identity.schema.json
+		wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/kratos.yml
 		
 		#Modify kratos.yml
 		awk -v new_dsn="postgres://kratos:$POSTGRES_PASSWORD@127.0.0.1:5432/kratos?sslmode=disable&max_conns=20&max_idle_conns=4" '/dsn:/ {$2=new_dsn} 1' "kratos.yml" | sed '/^\s*$/d' > temp.yml && mv temp.yml "kratos.yml"
