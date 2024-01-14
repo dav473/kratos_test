@@ -4,16 +4,16 @@ dsn: memory
 
 serve:
   public:
-    base_url: http://kratos-openresty-1:8080/
+    base_url: http://127.0.0.1:4433/
     cors:
       enabled: true
   admin:
     base_url: http://kratos:4434/
 
 selfservice:
-  default_browser_return_url: http://kratos-openresty-1:8080/auth
+  default_browser_return_url: http://127.0.0.1:4455/
   allowed_return_urls:
-    - http://kratos-openresty-1:8080
+    - http://127.0.0.1:4455
 
   methods:
     password:
@@ -31,16 +31,16 @@ selfservice:
 
   flows:
     error:
-      ui_url: http://kratos-openresty-1:8080/auth/error
+      ui_url: http://127.0.0.1:4455/error
 
     settings:
-      ui_url: http://kratos-openresty-1:8080/auth/settings
+      ui_url: http://127.0.0.1:4455/settings
       privileged_session_max_age: 15m
       required_aal: highest_available
 
     recovery:
       enabled: true
-      ui_url: http://kratos-openresty-1:8080/auth/recovery
+      ui_url: http://127.0.0.1:4455/recovery
       use: code
 
     verification:
@@ -52,15 +52,15 @@ selfservice:
 
     logout:
       after:
-        default_browser_return_url: http://kratos-openresty-1:8080/auth/out
+        default_browser_return_url: http://127.0.0.1:4455/login
 
     login:
-      ui_url: http://kratos-openresty-1:8080/auth/login
+      ui_url: http://127.0.0.1:4455/login
       lifespan: 10m
 
     registration:
       lifespan: 10m
-      ui_url: http://kratos-openresty-1:8080/auth/registration
+      ui_url: http://127.0.0.1:4455/registration
       after:
         password:
           hooks:
@@ -70,23 +70,13 @@ selfservice:
 log:
   level: debug
   format: text
-  leak_sensitive_values: true
+  leak_sensitive_values: false
 
 secrets:
   cookie:
     - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
   cipher:
     - 32-LONG-SECRET-NOT-SECURE-AT-ALL
-cookies:
-  domain: mydomain.corp
-  path: /
-  same_site: Lax
-
-session:
-  cookie:
-    domain: mydomain.corp
-    path: /
-    same_site: Strict
 
 ciphers:
   algorithm: xchacha20-poly1305
