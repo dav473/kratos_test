@@ -6,15 +6,15 @@ if ! id "kratos" &> /dev/null; then
         # Install
         apt install postgresql postgresql-contrib -y
 		
-		#Start postgresql
-		service postgresql start
-		
-		#Create DB as Postgres user
-		su -c "createdb kratos" postgres
-		
-		#Create user and add access
-		su -c "psql -c \"CREATE USER kratos PASSWORD '$POSTGRES_PASSWORD';\"" postgres
-		su -c "psql -c \"GRANT CONNECT ON DATABASE kratos to kratos;\"" postgres
+	#Start postgresql
+	service postgresql start
+	
+	#Create DB as Postgres user
+	su -c "createdb kratos" postgres
+	
+	#Create user and add access
+	su -c "psql -c \"CREATE USER kratos PASSWORD '$POSTGRES_PASSWORD';\"" postgres
+	su -c "psql -c \"GRANT CONNECT ON DATABASE kratos to kratos;\"" postgres
 		
 
 # Kratos
