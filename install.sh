@@ -45,13 +45,13 @@ if ! id "kratos" &> /dev/null; then
 	/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml migrate sql -y postgres://kratos:$POSTGRES_PASSWORD@127.0.0.1:5432/kratos?sslmode=disable
 	
 	#Start Kratos
-	/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
+	#/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
 		
 	echo "------SUCCESSFULLY INSTALLED------"
 else    
 	#Start PostgreSQL
 	service postgresql start
 	#Start Kratos
-	/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
+	#/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
 	echo "------ALREADY INSTALLED------"
 fi
