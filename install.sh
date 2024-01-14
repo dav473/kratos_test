@@ -6,15 +6,15 @@ if ! id "kratos" &> /dev/null; then
         # Install
         apt install postgresql postgresql-contrib -y
 		
-	#Start postgresql
-	service postgresql start
-	
-	#Create DB as Postgres user
-	su -c "createdb kratos" postgres
-	
-	#Create user and add access
-	su -c "psql -c \"CREATE USER kratos PASSWORD '$POSTGRES_PASSWORD';\"" postgres
-	su -c "psql -c \"GRANT CONNECT ON DATABASE kratos to kratos;\"" postgres
+		#Start postgresql
+		service postgresql start
+		
+		#Create DB as Postgres user
+		su -c "createdb kratos" postgres
+		
+		#Create user and add access
+		su -c "psql -c \"CREATE USER kratos PASSWORD '$POSTGRES_PASSWORD';\"" postgres
+		su -c "psql -c \"GRANT CONNECT ON DATABASE kratos to kratos;\"" postgres
 		
 
 # Kratos
@@ -35,23 +35,23 @@ if ! id "kratos" &> /dev/null; then
 
         # Download config files
         cd ../config
-	wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/identity.schema.json
-	wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/kratos.yml
-	
-	#Modify kratos.yml
-	awk -v new_dsn="postgres://kratos:$POSTGRES_PASSWORD@127.0.0.1:5432/kratos?sslmode=disable&max_conns=20&max_idle_conns=4" '/dsn:/ {$2=new_dsn} 1' "kratos.yml" | sed '/^\s*$/d' > temp.yml && mv temp.yml "kratos.yml"
-	
-	#DB migration
-	/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml migrate sql -y postgres://kratos:$POSTGRES_PASSWORD@127.0.0.1:5432/kratos?sslmode=disable
-	
-	#Start Kratos
-	#/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
+		wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/identity.schema.json
+		wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/kratos.yml
 		
-	echo "------SUCCESSFULLY INSTALLED------"
-else    
-	#Start PostgreSQL
-	service postgresql start
-	#Start Kratos
-	#/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
-	echo "------ALREADY INSTALLED------"
+		#Modify kratos.yml
+		awk -v new_dsn="postgres://kratos:$POSTGRES_PASSWORD@127.0.0.1:5432/kratos?sslmode=disable&max_conns=20&max_idle_conns=4" '/dsn:/ {$2=new_dsn} 1' "kratos.yml" | sed '/^\s*$/d' > temp.yml && mv temp.yml "kratos.yml"
+		
+		#DB migration
+		/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml migrate sql -y postgres://kratos:$POSTGRES_PASSWORD@127.0.0.1:5432/kratos?sslmode=disable
+		
+		#Start Kratos
+		/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
+		
+		echo "------SUCCESSFULLY INSTALLED------"
+else
+		#Start PostgreSQL
+		service postgresql start
+		#Start Kratos
+		/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
+        echo "------ALREADY INSTALLED------"
 fi
