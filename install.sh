@@ -6,7 +6,7 @@ if ! id "kratos" &> /dev/null; then
         # Install
         apt install postgresql postgresql-contrib -y
 		
-		#Start postgresql service
+		#Start postgresql
 		service postgresql start
 		
 		#Create DB as Postgres user
@@ -44,10 +44,14 @@ if ! id "kratos" &> /dev/null; then
 		#DB migration
 		/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml migrate sql -y postgres://kratos:$POSTGRES_PASSWORD@127.0.0.1:5432/kratos?sslmode=disable
 		
-		#Start Kratos service
+		#Start Kratos
 		/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
 		
 		echo "------SUCCESSFULLY INSTALLED------"
 else
+		#Start PostgreSQL
+		service postgresql Start
+		#Start Kratos
+		/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
         echo "------ALREADY INSTALLED------"
 fi
