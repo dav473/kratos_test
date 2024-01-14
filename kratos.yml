@@ -11,7 +11,7 @@ serve:
     base_url: http://kratos:4434/
 
 selfservice:
-  default_browser_return_url: http://kratos-openresty-1:8080/auth1223456
+  default_browser_return_url: http://kratos-openresty-1:8080/auth
   allowed_return_urls:
     - http://kratos-openresty-1:8080
 
@@ -105,4 +105,3 @@ identity:
 courier:
   smtp:
     connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
-tttt
