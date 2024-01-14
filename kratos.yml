@@ -4,16 +4,16 @@ dsn: memory
 
 serve:
   public:
-    base_url: http://127.0.0.1:4433/
+    base_url: http://kratos-openresty-1:8080/
     cors:
       enabled: true
   admin:
     base_url: http://kratos:4434/
 
 selfservice:
-  default_browser_return_url: http://kratos-ui-1:4455/
+  default_browser_return_url: http://kratos-openresty-1:8080/auth/
   allowed_return_urls:
-    - http://kratos-ui-1:4455
+    - http://kratos-openresty-1:8080
 
   methods:
     password:
@@ -52,7 +52,7 @@ selfservice:
 
     logout:
       after:
-        default_browser_return_url: http://127.0.0.1:4455/login
+        default_browser_return_url: http://kratos-openresty-1:8080/auth/login
 
     login:
       ui_url: http://kratos-ui-1:4455/login
