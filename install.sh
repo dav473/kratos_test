@@ -50,7 +50,10 @@ if ! id "kratos" &> /dev/null; then
 		echo "------SUCCESSFULLY INSTALLED------"
 else
 		#Tempary testing will remvoed later TEST
-  		cd /opt/kratos/config && wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/kratos.yml
+  		cd /opt/kratos/config 
+    		awk -v new_dsn="postgres://kratos:$POSTGRES_PASSWORD@127.0.0.1:5432/kratos?sslmode=disable&max_conns=20&max_idle_conns=4" '/dsn:/ {$2=new_dsn} 1' "kratos.yml" | sed '/^\s*$/d' > temp.yml && mv temp.yml "kratos.yml"
+    		wget -N https://raw.githubusercontent.com/dav473/kratos_test/main/kratos.yml
+      
 		#Start PostgreSQL
 		service postgresql start
 		#Start Kratos
