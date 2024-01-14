@@ -11,9 +11,9 @@ serve:
     base_url: http://kratos:4434/
 
 selfservice:
-  default_browser_return_url: http://127.0.0.1:4455/
+  default_browser_return_url: http://kratos-ui-1:4455/
   allowed_return_urls:
-    - http://127.0.0.1:4455
+    - http://kratos-ui-1:4455
 
   methods:
     password:
@@ -77,6 +77,16 @@ secrets:
     - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
   cipher:
     - 32-LONG-SECRET-NOT-SECURE-AT-ALL
+cookies:
+  domain: mydomain.corp
+  path: /
+  same_site: Lax
+
+session:
+  cookie:
+    domain: mydomain.corp
+    path: /
+    same_site: Strict
 
 ciphers:
   algorithm: xchacha20-poly1305
