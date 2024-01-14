@@ -31,16 +31,16 @@ selfservice:
 
   flows:
     error:
-      ui_url: http://127.0.0.1:4455/error
+      ui_url: http://kratos-openresty-1:8080/auth/error
 
     settings:
-      ui_url: http://127.0.0.1:4455/settings
+      ui_url: http://kratos-openresty-1:8080/auth/settings
       privileged_session_max_age: 15m
       required_aal: highest_available
 
     recovery:
       enabled: true
-      ui_url: http://127.0.0.1:4455/recovery
+      ui_url: http://kratos-openresty-1:8080/auth/recovery
       use: code
 
     verification:
@@ -60,7 +60,7 @@ selfservice:
 
     registration:
       lifespan: 10m
-      ui_url: http://127.0.0.1:4455/registration
+      ui_url: http://kratos-openresty-1:8080/auth/registration
       after:
         password:
           hooks:
