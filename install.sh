@@ -50,7 +50,7 @@ if ! id "kratos" &> /dev/null; then
 		echo "------SUCCESSFULLY INSTALLED------"
 else
 		#Start PostgreSQL
-		service postgresql Start
+		service postgresql start
 		#Start Kratos
 		/opt/kratos/bin/kratos -c /opt/kratos/config/kratos.yml serve
         echo "------ALREADY INSTALLED------"
