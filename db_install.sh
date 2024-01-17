@@ -1,7 +1,9 @@
 #!/bin/bash
 
 if [ !"$INIT" = "1" ]; then
-#PostgreSQL
+  echo "export INIT=1" >> ~/.bashrc
+  source ~/.bashrc
+  #PostgreSQL
   export DEBIAN_FRONTEND=noninteractive
   # Install
   apt install postgresql postgresql-contrib -y
