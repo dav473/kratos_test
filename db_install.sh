@@ -1,8 +1,6 @@
 #!/bin/bash
 
 if [ "$INIT" != 1 ]; then
-  echo "export INIT=1" >> ~/.bashrc
-  source ~/.bashrc
   #PostgreSQL
   export DEBIAN_FRONTEND=noninteractive
   # Install
@@ -20,6 +18,9 @@ if [ "$INIT" != 1 ]; then
   su -c "psql -c \"CREATE USER hydra PASSWORD '$HYDRA_POSTGRES_PASSWORD';\"" postgres
   su -c "psql -c \"GRANT CONNECT ON DATABASE kratos to kratos;\"" postgres
   su -c "psql -c \"GRANT CONNECT ON DATABASE hydra to hydra;\"" postgres
+  #Set INIT to 1
+  echo "export INIT=1" >> ~/.bashrc
+  source ~/.bashrc
 else
   echo "------POSTGRESQL WAS ALREADY INSTALLED------"
 fi
