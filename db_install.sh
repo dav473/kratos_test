@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INIT_MARKER_FILE="/var/lib/docker/init_done"
+INIT_MARKER_FILE="init_done"
 
 # Check if the marker file exists
 if [ ! -e "$INIT_MARKER_FILE" ]; then
@@ -30,5 +30,5 @@ if [ ! -e "$INIT_MARKER_FILE" ]; then
 
     echo "Initialization complete."
 else
-    echo "Initialization already done. Skipping."
+    echo "PostgreSQL initialization already done."
 fi
