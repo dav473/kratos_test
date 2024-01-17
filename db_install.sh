@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ !"$INIT" == 1 ]; then
+if [ "$INIT" != 1 ]; then
   echo "export INIT=1" >> ~/.bashrc
   source ~/.bashrc
   #PostgreSQL
