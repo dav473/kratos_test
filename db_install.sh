@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$INIT" = "1" ]; then
+if [ !"$INIT" = "1" ]; then
 #PostgreSQL
   export DEBIAN_FRONTEND=noninteractive
   # Install
@@ -15,7 +15,7 @@ if [ "$INIT" = "1" ]; then
   
   #Create user and add access
   su -c "psql -c \"CREATE USER kratos PASSWORD '$POSTGRES_PASSWORD';\"" postgres
-  su -c "psql -c \"CREATE USER kratos PASSWORD '$HYDRA_POSTGRES_PASSWORD';\"" postgres
+  su -c "psql -c \"CREATE USER hydra PASSWORD '$HYDRA_POSTGRES_PASSWORD';\"" postgres
   su -c "psql -c \"GRANT CONNECT ON DATABASE kratos to kratos;\"" postgres
   su -c "psql -c \"GRANT CONNECT ON DATABASE hydra to hydra;\"" postgres
 else
