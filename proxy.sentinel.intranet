@@ -51,7 +51,7 @@ server {
             proxy_set_header  X-Forwarded-Proto $http_x_forwarded_proto;
         }
         location /kratos/identities {
-                    proxy_pass http://admin_api;
+                    proxy_pass http://hydra_frontend_ui;
                     proxy_redirect          off;
                     proxy_set_header        Host            $host;
                     proxy_set_header        X-Real-IP       $remote_addr;
