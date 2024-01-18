@@ -1,0 +1,62 @@
+upstream hydra_public_api {
+    server hydra.sentinel.intranet:4444;
+}
+
+upstream hydra_admin_api {
+    server hydra.sentinel.intranet:4445;
+}
+upstream hydra_frontend_ui {
+    server admin.sentinel.intranet;
+}
+
+
+server {
+        listen 80;
+        server_name proxy.sentinel.intranet;
+
+        location ~ ^/(admin|clients|keys|health|metrics|version|oauth2/auth/requests|oauth2/introspect|oauth2/flush)/? {
+            set $allow 0;
+            if ($remote_addr ~* "172.28.0.*") {
+            set $allow 1;
+            }
+            if ($arg_secret = "webaccesspass") {
+            set $allow 1;
+            }
+            if ($allow = 0) {
+            return 403;
+            }
+
+            proxy_pass http://hydra_admin_api;
+            proxy_redirect    off;
+            proxy_set_header  Host               $host;
+            proxy_set_header  X-Real-IP          $remote_addr;
+            proxy_set_header  X-Forwarded-For    $proxy_add_x_forwarded_for;
+            proxy_set_header  X-Forwarded-Proto  $http_x_forwarded_proto;
+        }
+        location ~ ^/(.well-known|oauth2/auth|oauth2/token|oauth2/sessions|oauth2/revoke|oauth2/fallbacks/consent|oauth2/fallbacks/error|userinfo)/? {
+            proxy_pass http://hydra_public_api;
+            proxy_redirect    off;
+            proxy_set_header  Host              $host;
+            proxy_set_header  X-Real-IP         $remote_addr;
+            proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
+            proxy_set_header  X-Forwarded-Proto $http_x_forwarded_proto;
+        }
+
+        location /{
+            proxy_pass http://hydra_frontend_ui;
+            proxy_redirect    off;
+            proxy_set_header  Host              $host;
+            proxy_set_header  X-Real-IP         $remote_addr;
+            proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
+            proxy_set_header  X-Forwarded-Proto $http_x_forwarded_proto;
+        }
+        location /kratos/identities {
+                    proxy_pass http://admin_api;
+                    proxy_redirect          off;
+                    proxy_set_header        Host            $host;
+                    proxy_set_header        X-Real-IP       $remote_addr;
+                    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+
+}
