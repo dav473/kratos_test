@@ -5,7 +5,7 @@ upstream hydra_public_api {
 upstream hydra_admin_api {
     server hydra.sentinel.intranet:4445;
 }
-upstream hydra_frontend_ui {
+upstream kratos_frontend_ui {
     server admin.sentinel.intranet;
 }
 
@@ -42,21 +42,15 @@ server {
             proxy_set_header  X-Forwarded-Proto $http_x_forwarded_proto;
         }
 
-        location /{
-            proxy_pass http://hydra_frontend_ui;
+        location = /kratos/dashboard {
+            proxy_pass http://kratos_frontend_ui;
             proxy_redirect    off;
             proxy_set_header  Host              $host;
             proxy_set_header  X-Real-IP         $remote_addr;
             proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
             proxy_set_header  X-Forwarded-Proto $http_x_forwarded_proto;
         }
-        location /kratos/identities {
-                    proxy_pass http://hydra_frontend_ui;
-                    proxy_redirect          off;
-                    proxy_set_header        Host            $host;
-                    proxy_set_header        X-Real-IP       $remote_addr;
-                    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
+
 
 
 }
