@@ -42,7 +42,7 @@ server {
             proxy_set_header  X-Forwarded-Proto $http_x_forwarded_proto;
         }
 
-        location = /kratos/dashboard {
+        location / {
             proxy_pass http://kratos_frontend_ui;
             proxy_redirect    off;
             proxy_set_header  Host              $host;
